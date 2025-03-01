@@ -1,0 +1,76 @@
+<style>
+    .container {
+        width: 50rem;
+    }
+
+    img {
+        max-width: 20rem;
+        border-radius: 5px;
+    }
+
+    .petcontainer {
+        width: max-content;
+        margin: auto;
+
+    }
+
+    input,
+    textarea {
+        width: 100%;
+    }
+</style>
+
+<body>
+    <%- include("../includes/navbar") %>
+        <%- include('../includes/flash.ejs') %>
+            <div class="container mx-auto p-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-semibold text-center mb-6">Pet Details</h2>
+                    <form action="/pets/edit/<%= pet._id %>" method="post" class="space-y-4">
+                        <div class="text-center">
+                            <img src="<%= pet.photo_url %>" alt="Pet Avatar"
+                                class="w-40 h-40 object-cover rounded-full mx-auto mb-4">
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
+                            <label for="name" class="block text-sm font-medium">Name</label>
+                            <input
+                                class=" px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                                name="name" value="<%= pet.name %>">
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
+                            <label for="breed" class="block text-sm font-medium">Breed</label>
+                            <input
+                                class="  px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                                name="breed" value="<%= pet.breed %>">
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
+                            <label for="age" class="block text-sm font-medium">Age</label>
+                            <input
+                                class=" px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                                name="age" value="<%= pet.age %>">
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
+                            <label for="description" class="block text-sm font-medium">Description</label>
+                            <input
+                                class=" px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                                name="description" value="<%= pet.description %>">
+                        </div>
+                        <div class="w-full sm:w-1/2 lg:w-1/3 mx-auto">
+                            <label for="photo_url" class="block text-sm font-medium">Photo URL</label>
+                            <input
+                                class=" px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                                name="photo_url" placeholder="Enter image URL" value="<%= pet.photo_url %>">
+                        </div>
+                        <div class="text-center">
+                            <button
+                                class="w-full sm:w-1/2 lg:w-1/3 py-2 mt-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <%- include("../includes/footer") %>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<body>
+  <%- include("../includes/navbar") %>
+  <%- include('../includes/flash.ejs') %>
+
+  <section class="bg-light p-3 sm:p-4 lg:p-5">
+    <div class="container mx-auto">
+      <div class="flex justify-center">
+        <div class="w-full sm:w-9/12 lg:w-7/12 xl:w-6/12 2xl:w-5/12">
+          <div class="border border-light-subtle rounded-4 shadow-md bg-white">
+            <div class="p-3 sm:p-4 lg:p-5">
+              <div class="mb-5">
+                <h2 class="text-2xl font-semibold text-center">Add a New Pet</h2>
+              </div>
+              <form action="/pets/new" method="post">
+                <div class="space-y-4">
+                  <div>
+                    <label for="name" class="block text-sm font-medium">Pet Name</label>
+                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md" name="name" id="name" placeholder="Enter pet name" required>
+                  </div>
+                  <div>
+                    <label for="breed" class="block text-sm font-medium">Breed</label>
+                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md" name="breed" id="breed" placeholder="Enter pet breed" required>
+                  </div>
+                  <div>
+                    <label for="photo_url" class="block text-sm font-medium">Image URL</label>
+                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md" name="photo_url" id="photo_url" placeholder="Enter image link" value="https://images.pexels.com/photos/62289/yemen-chameleon-chamaeleo-calyptratus-chameleon-reptile-62289.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" required>
+                  </div>
+                  <div>
+                    <label for="age" class="block text-sm font-medium">Age</label>
+                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-md" name="age" id="age" placeholder="Enter pet age" required>
+                  </div>
+                  <div>
+                    <label for="description" class="block text-sm font-medium">Description</label>
+                    <textarea class="w-full px-4 py-2 border border-gray-300 rounded-md" name="description" id="description" placeholder="Enter pet description" required></textarea>
+                  </div>
+                  <div>
+                    <button class="w-full py-2 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600" type="submit">Add Pet</button>
+                  </div>
+                </div>
+              </form>
+              <div class="mt-5">
+                <hr class="border-gray-300 mb-4">
+                <p class="text-center text-sm text-gray-600">
+                  Want to see all pets? <a href="/pets" class="text-blue-500 hover:underline">View Listings</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include("../includes/footer") %>
+</body>
+</html>

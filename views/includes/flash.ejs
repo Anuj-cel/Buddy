@@ -1,0 +1,13 @@
+<% if (error.length !== 0) { %>
+  <div class="bg-red-300 text-white text-center p-4 rounded-md shadow-md w-1/2 mx-auto flex justify-between items-center md:mt-2 mb:mb-2 mt-1 mb-1">
+      <%= error %>
+      <button class="text-white" onclick="this.parentElement.remove()">✖</button>
+  </div>
+<% } %>
+
+<% if (success.length !== 0) { %>
+  <div class="bg-green-400 text-white text-center p-4 rounded-md shadow-md w-1/2 mx-auto flex justify-between items-center md:mt-2 mb:mb-2 mt-1 mb-2">
+      <%= success %>
+      <button class="text-white" onclick="this.parentElement.remove()">✖</button>
+  </div>
+<% } %>

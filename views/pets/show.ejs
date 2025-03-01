@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function confirmDelete(petId) {
+            let confirmAction = confirm("Are you sure you want to delete this pet?");
+            if (confirmAction) {
+                window.location.href = `/pets/delete/${petId}`; // Redirect only if confirmed
+            }
+        }
+        // function addToCart(petId) {
+        //     fetch('/cart/add', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify({ petId }) // Sending petId to backend
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => alert(data.message))  // Show success message
+        //         .catch(error => console.error('Error:', error));
+        //     console.log("I am here ", petId)
+        // }
+
+    </script>
+
+</head>
+
+<body class="bg-gray-100">
+    <%- include("../includes/navbar") %>
+        <%- include("../includes/flash") %>
+
+            <div class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Pet Details</h2>
+                <div class="flex flex-col items-center">
+                    <img src="<%= pet.photo_url %>" alt="Avatar" class="w-80 rounded-lg shadow-md">
+                    <p class="text-lg font-semibold mt-4 text-gray-700">
+                        <%= pet.name %>
+                    </p>
+                    <p class="text-gray-600">
+                        <%= pet.breed %>
+                    </p>
+                    <p class="text-gray-600">Age: <%= pet.age %>
+                    </p>
+                    <p class="text-gray-600 text-center max-w-md">
+                        <%= pet.description %>
+                    </p>
+                    <div class="mt-4 flex space-x-4">
+                        <% if(user.username==='anuj' ) {%>
+                            <a class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+                                href="/pets/edit/<%= pet._id %>">Edit</a>
+                            <a class="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
+                                href="#" onclick="confirmDelete('<%= pet._id %>')">Delete</a>
+
+                            <% }else{ %>
+                                <a class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+                                href="/pets/wishlist/add/<%= pet._id %>">Wishlist</a>
+                                <a class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                                    href="/pets/adopt/<%= pet._id %>">Adopt Me</a>
+
+                                <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <%- include("../includes/footer") %>
+</body>
+
+</html>
