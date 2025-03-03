@@ -487,9 +487,9 @@ app.get("/newPassword",isLoggedIn,asyncWrap ((req, res) => {
     res.redirect("/pets");
 }));
 
-app.get("/", (req, res) => {
-    res.send("This is home route for petAdoption");
-});
+app.get("/", asyncWrap(async (req, res, next) => {
+    res.redirect("/pets");
+}));
 
 app.use((err, req, res, next) => {
     const error = err.message || "Something went wrong";
