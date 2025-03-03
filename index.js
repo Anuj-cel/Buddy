@@ -69,7 +69,7 @@ const sessionOptions = {
             httpOnly: true,
         }),
         store: MongoStore.create({
-            mongoUrl: process.env.dbUrl,
+            mongoUrl: dbUrl,
             touchAfter: 24 * 3600 
           })
 };
