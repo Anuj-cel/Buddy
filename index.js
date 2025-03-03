@@ -1,8 +1,5 @@
 require('dotenv').config();
 
-// use node not nodemon after .env file
-
-
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -11,15 +8,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session")
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static("public"));
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
+const MongoStore = require('connect-mongo');
 const Pets = require("./init/index.js");
 const User = require("./userSchema.js");
 const Adoption = require("./adoptionSchema.js");
@@ -28,14 +17,21 @@ const petsSchema = require("./validatePets.js");
 const userSchema = require("./validateUser.js");
 const LocalStrategy = require('passport-local');// for local passport
 const sendMail = require("./utils/nodemailer.js");
+const dbUrl=process.env.dbUrl;
+const SECRET=process.env.SECRET;
+const GOOGLE_CLIENT_ID=process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET=process.env.GOOGLE_CLIENT_SECRET;
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static("public"));
 
-
-const MONGO_URL = 'mongodb://127.0.0.1:27017/pets';
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 async function main() {
     try {
-        mongoose.connect(MONGO_URL);
+        mongoose.connect(dbUrl);
         console.log("Db Connected!");
     }
     catch (err) {
@@ -64,7 +60,7 @@ const validateUsers = (req, res, next) => {
 }
 
 const sessionOptions = {
-    secret: 'fallbackSecret',
+    secret: SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: (
@@ -72,9 +68,13 @@ const sessionOptions = {
             maxAge: 7 * 24 * 60 * 60 * 1000, //--> not with Date.now()
             httpOnly: true,
         }),
+        store: MongoStore.create({
+            mongoUrl: process.env.dbUrl,
+            touchAfter: 24 * 3600 
+          })
 };
-// Initialize Passport!  Also use passport.session() middleware, to support
-// persistent login sessions (recommended).
+
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -89,7 +89,7 @@ app.use(passport.session());
 //   the user by ID when deserializing.  
 
 passport.serializeUser((user, done) => {
-    // console.log("This is serilizer user ",user);
+    
     done(null, user.id); // Store user ID in session
 });
 
@@ -108,25 +108,22 @@ app.use((req, res, next) => {
     res.locals.user = { username: "A" };// its was giving user is not defined in navbar so dummy data
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    // console.log("User object in session:", req.user);  // Check session data
     if (req.isAuthenticated() == true) {
         res.locals.checkLogin = true;
         res.locals.user = req.user;
 
         res.locals.userProfileImg = userProfileImg;
-        console.log("This is profile image ", res.locals.userProfileImg)
-        console.log("This is user ", res.locals.user);
+
     }
     else res.locals.checkLogin = false;
-    // console.log("This is checkLogin ",res.locals.checkLogin);
     next();
 });
 
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:8080/auth/google/callback",
     state: true
 }, (async (accessToken, refreshToken, profile, done) => {//TypeError: done is not a function
@@ -163,11 +160,6 @@ app.get('/auth/google/callback',
     }
 );
 
-
-
-
-
-
 // passport.serializeUser(User.serializeUser());// serialize in one session--> saving users data in sessions 
 // //Serialization: After a user logs in (via either Local or Google strategy), Passport saves their unique identifier (e.g., user.id) in the session:
 // passport.deserializeUser(User.deserializeUser());// retrieving users data from sessions
@@ -199,7 +191,6 @@ app.get("/profile", isLoggedIn,asyncWrap(async (req, res, next) => {
     res.render("./user/profile.ejs", { wishlist });
 }));
 
-// app.use("/pets",petRouter);
 
 
 //adopt form
@@ -406,9 +397,7 @@ app.post("/signup", validateUsers, asyncWrap(async (req, res, next) => {
     console.log("This is req body ", req.body);
     const { password } = req.body;
     const newUser = new User({ ...req.body });
-
     const registeredUser = await User.register(newUser, password);
-
     req.flash('success', 'Signed up successfully!');
     res.redirect("/login");
 }));
@@ -460,7 +449,6 @@ app.get("/wishlist",isLoggedIn, asyncWrap(async (req, res, next) =>{
 
 //login
 app.get("/login", (req, res) => {
-
     res.render("./user/login.ejs");
 });
 
@@ -488,11 +476,11 @@ app.get("/forgetPassword",isLoggedIn,asyncWrap( (req, res) => {
     
     res.render("./user/forgetPassword.ejs");
 }))
-app.post("/forgetPassword", isLoggedIn,asyncWrap((req, res) => {
- 
 
+app.post("/forgetPassword", isLoggedIn,asyncWrap((req, res) => {
     res.render("./user/newPassword.ejs");
 }))
+
 //new password
 app.get("/newPassword",isLoggedIn,asyncWrap ((req, res) => {
     req.flash("success", "Password reset successfully");
