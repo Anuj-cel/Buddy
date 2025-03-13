@@ -22,6 +22,8 @@ const SECRET=process.env.SECRET;
 const GOOGLE_CLIENT_ID=process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET=process.env.GOOGLE_CLIENT_SECRET;
 
+const index=require("./routes/pets.js")
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static("public"));
@@ -176,13 +178,6 @@ const isLoggedIn = (req, res, next) => {
     next();
 };
 
-//index 
-app.get("/pets", asyncWrap(async (req, res, next) => {
-    const allPets = await Pets.find({});
-    // console.log("This is allPets for index ",allPets);
-    res.render("./pets/index.ejs", { allPets });
-}));
-
 //profile
 app.get("/profile", isLoggedIn,asyncWrap(async (req, res, next) => {
     let userId=res.locals.user._id;
@@ -192,6 +187,8 @@ app.get("/profile", isLoggedIn,asyncWrap(async (req, res, next) => {
 }));
 
 
+//index 
+app.get("/pets", index);
 
 //adopt form
 app.get("/pets/adopt/:id", isLoggedIn, asyncWrap((req, res, next) => {
@@ -374,18 +371,7 @@ app.get("/pets/delete/:id", isLoggedIn, asyncWrap(async (req, res, next) => {
     res.redirect(`/pets`);
 }));
 
-//show route
-app.get("/pets/:id", asyncWrap(async (req, res, next) => {
-    console.log("I am here in show")
-    let id = req.params.id;
-    let id2=req.query.petId;
-    let pet={};
-    if(id)
-     pet = await Pets.findById(id);
-    else 
-    pet=await Pets.findById(id2);
-    res.render("./pets/show.ejs", { pet });
-}));
+
 
 
 app.get("/signup",  asyncWrap((req, res) => {
@@ -488,7 +474,7 @@ app.get("/newPassword",isLoggedIn,asyncWrap ((req, res) => {
 }));
 
 app.get("/", asyncWrap(async (req, res, next) => {
-    res.redirect("/pets");
+    res.render("./pets/landing.ejs");
 }));
 
 app.use((err, req, res, next) => {

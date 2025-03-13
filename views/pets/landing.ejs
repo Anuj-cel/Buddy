@@ -1,0 +1,72 @@
+
+   
+<body class="bg-white text-gray-900">
+    <%- include("../includes/navbar") %>
+    <%- include('../includes/flash.ejs') %>
+  <!-- Navbar -->
+  <!-- <nav class="flex justify-between items-center p-6 bg-gray-100 shadow-md">
+    <div class="text-xl font-bold flex items-center space-x-2">
+      <span class="text-2xl">🐾</span>
+      <span>PetFam</span>
+    </div>
+    <ul class="flex space-x-8 text-lg">
+      <li><a href="#" class="border px-4 py-2 rounded-full hover:bg-gray-200">Home</a></li>
+      <li><a href="#" class="hover:text-gray-500">Sponsor a pet</a></li>
+      <li><a href="#" class="hover:text-gray-500">Contact</a></li>
+      <li><a href="#" class="hover:text-gray-500">About us</a></li>
+    </ul>
+  </nav> -->
+  
+  <!-- Hero Section -->
+  <section class="relative flex flex-col lg:flex-row items-center px-10 py-16">
+    <div class="lg:w-1/2">
+      <h1 class="text-5xl font-bold leading-tight">Get your family <br> a new member.</h1>
+      <p class="text-gray-600 mt-4">Open your doors and hearts to pets in need of a home and they will be thankful to you for the rest of their lives.</p>
+      <button class="mt-6 bg-black text-white px-6 py-3 rounded-full flex items-center shadow-lg hover:bg-gray-800 transition" ><a href="/pets">EXPLORE ➝</a></button>
+    </div>
+    <div class="lg:w-1/2 relative mt-10 lg:mt-0">
+      <img src="https://www.aspca.org/sites/default/files/how-you-can-help_adoptions-tips_main-image-dog.jpg" alt="Dog" class="w-full">
+    </div>
+  </section>
+  
+  <!-- Stats Section -->
+  <div class="relative mx-auto px-10">
+    <div class="bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
+      <div>
+        <h3 class="text-3xl font-bold">544</h3>
+        <p class="text-gray-500">Waiting for home</p>
+      </div>
+      <div>
+        <h3 class="text-3xl font-bold">756</h3>
+        <p class="text-gray-500">Adopted last year</p>
+      </div>
+      <div>
+        <h3 class="text-3xl font-bold">422</h3>
+        <p class="text-gray-500">Rescued</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials Section -->
+  <section class="py-16 bg-gray-100 text-center">
+    <h2 class="text-4xl font-bold mb-8">What Our Adopters Say</h2>
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 shadow-lg rounded-lg">
+        <p class="text-gray-700 italic">"Adopting from PetFam was the best decision ever! Our furry friend brought so much joy into our lives."</p>
+        <h4 class="mt-4 font-bold">- Sarah Johnson</h4>
+      </div>
+      <div class="bg-white p-6 shadow-lg rounded-lg">
+        <p class="text-gray-700 italic">"The process was seamless and the staff was very supportive. Highly recommend PetFam!"</p>
+        <h4 class="mt-4 font-bold">- Michael Smith</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 text-center bg-black text-white">
+    <h2 class="text-4xl font-bold">Ready to adopt?</h2>
+    <p class="mt-4 text-lg">Find your perfect pet today and give them a loving home.</p>
+    <button class="mt-6 bg-white text-black px-6 py-3 rounded-full text-lg font-bold hover:bg-gray-300 transition"><a href="/pets">Get Started</a> </button>
+  </section>
+
+</body>
