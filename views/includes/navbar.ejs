@@ -53,7 +53,6 @@
     
     
             <div id="navbar" class="md:block flex flex-col space-y-2  bg-white  hidden">
-                <!-- <a href="#" class="text-xl font-bold text-gray-800">buddy</a> -->
                <a href="/">
                 <span class="text-xl font-bold  space-x-2">
                     <span class="text-2xl">🐾</span>
@@ -63,55 +62,11 @@
              
                 <a href="/pets" class=" btn text-gray-800 hover:text-gray-600 mx-5">Adopt</a>
                 <a href="/pets" class="btn text-gray-800 hover:text-gray-600 mx-5">Browse Pets</a>
-                <a href="#" class="btn text-gray-800 hover:text-gray-600 mx-5">Donate</a>
                 <% if(user.username==='anuj' ){ %>
                     <a href="/pets/new" class="btn text-gray-800 hover:text-gray-600 mx-5">Add Pets</a>
                     <% } %>
-                        <!-- <a href="#" class="btn text-gray-800 hover:text-gray-600 mx-5">Disabled</a> -->
             </div>
-            <!-- <div id="navbar" class="md:block flex flex-col space-y-2  bg-white  ">
-                <% if(checkLogin===false) {%>
-                    <a href="/signup" class="btn text-gray-800 hover:text-gray-600 mx-5">Sign Up</a>
-                    <a href="/login" class="btn text-gray-800 hover:text-gray-600 mx-5">Login</a>
-                    <% }else{ %>
-                        <div>
-                            <button class="flex items-center space-x-2 focus:outline-none relative"
-                            onclick="toggleDropdown()">
-                            <% if(!userProfileImg){%>
-                                <div
-                                    class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-lg">
-                                    <%= user.username.charAt(0).toUpperCase() %>
-                                </div>
-                                <% } else {%>
 
-
-
-
-                                    <div class="w-8 h-8 rounded-full overflow-hidden" id="profileContainer">
-                                        <img id="profileImage" src="<%= userProfileImg %>"
-                                            class="w-full h-full object-cover" onerror="handleImageError()" />
-                                    </div>
-                                    <% } %>
-                                        <span class="text-gray-800 font-medium">
-                                            <%= user.username %>
-                                        </span>
-                                        <span>▼</span>
-                        </button>
-
-                        </div>
-                        
-
-
-                        <div id="user-dropdown"
-                            class="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md  z-10 hidden">
-                            <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
-                            <a href="/wishlist" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">WishList</a>
-                            <a href="/settings" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Settings</a>
-                            <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Log out</a>
-                        </div>
-
-                        <% } %>
-            </div> -->
 
             <div class="ml-auto flex items-center">
                 <% if(checkLogin===false) {%>
@@ -137,7 +92,6 @@
                         <div id="user-dropdown" class="absolute right-0 mt-2 w-40 bg-white shadow-md rounded-md z-10 hidden">
                             <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
                             <a href="/wishlist" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">WishList</a>
-                            <a href="/settings" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Settings</a>
                             <a href="/logout" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Log out</a>
                         </div>
                     </div>
@@ -163,7 +117,6 @@
         <div id="navbar-hamburger" class="hidden flex flex-col space-y-2 p-4  md:hidden">
             <a href="/pets" class="text-gray-800 cursor-not-allowed">Adopt</a>
             <a href="/pets" class="text-gray-800 hover:text-gray-600">Browse Pets</a>
-            <a href="#" class="text-gray-800 hover:text-gray-600">Pricing</a>
         </div>
 
     </nav>
