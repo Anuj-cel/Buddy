@@ -32,3 +32,23 @@ A backend server for a Pet Adoption Website, built with Node.js and Express.js. 
 ```bash
 git clone https://github.com/yourusername/pet-adoption-backend.git
 cd pet-adoption-backend
+2. Install dependencies:
+npm install
+3.Start the server:
+npm start
+
+API Endpoints
+Pets
+
+GET /pets – Get all pets
+GET /pets/:id – Get a specific pet
+POST /pets – Add a new pet
+PUT /pets/:id – Update a pet
+DELETE /pets/:id – Delete a pet
+
+Adoption Requests
+POST /adoptions – Submit a new adoption request (triggers email confirmation)
+
+Email Notifications
+
+The backend uses Nodemailer to send email confirmations when a user submits an adoption request. Make sure your .env contains valid email credentials.
